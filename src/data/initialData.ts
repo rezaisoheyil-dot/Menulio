@@ -1,0 +1,341 @@
+import {
+  CafeState,
+  SubscriptionPlan,
+  TemplatePreset,
+} from '../types/cafe';
+
+export const HERO_IMAGE = '/src/assets/images/hero_cafe_latte_1795336624538.jpg';
+export const ESPRESSO_IMAGE = '/src/assets/images/menu_espresso_cup_1795336624425.jpg';
+export const CAPPUCCINO_IMAGE = '/src/assets/images/menu_cappuccino_art_1795336624521.jpg';
+export const ICED_LATTE_IMAGE = '/src/assets/images/menu_iced_latte_1795336624298.jpg';
+export const PASTRY_IMAGE = '/src/assets/images/menu_croissant_dessert_1795336624273.jpg';
+
+export function resolveAssetUrl(path: string): string {
+  if (!path || !path.startsWith('/')) return path;
+  const wp = (window as unknown as { CAFEMENU_WP?: { themeDistUrl?: string } }).CAFEMENU_WP;
+  if (wp?.themeDistUrl) {
+    return `${wp.themeDistUrl.replace(/\/$/, '')}${path}`;
+  }
+  return path;
+}
+
+export function toPersianDigits(value: string | number): string {
+  const persianDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+  return String(value).replace(/\d/g, (digit) => persianDigits[Number(digit)]);
+}
+
+export function formatPriceToman(amount: number): string {
+  const formatted = new Intl.NumberFormat('en-US').format(amount);
+  return `${toPersianDigits(formatted)} تومان`;
+}
+
+export const TEMPLATE_PRESETS: TemplatePreset[] = [
+  {
+    id: 'roka-dark',
+    name: 'کافه روکا',
+    styleLabel: 'مدرن اسپرسو بار',
+    description: 'پس‌زمینه تیره ذغالی با رنگ تاکیدی کهربایی، مناسب کافه‌های تخصصی و لانژ.',
+    accentColor: '#E66F1E',
+    surfaceBg: '#161311',
+    cardBg: '#221D1A',
+    textColor: '#F5F2EE',
+    mutedColor: '#A89F96',
+    isDark: true,
+    previewImage: CAPPUCCINO_IMAGE,
+  },
+  {
+    id: 'arti-minimal',
+    name: 'کافه آرتی',
+    styleLabel: 'روشن مینیمال',
+    description: 'زمینه کرم روشن و تایپوگرافی تمیز، ایده‌آل برای کافه‌نانوایی و برانچ.',
+    accentColor: '#B45309',
+    surfaceBg: '#F6F3EE',
+    cardBg: '#FFFFFF',
+    textColor: '#1E1B18',
+    mutedColor: '#6E675F',
+    isDark: false,
+    previewImage: PASTRY_IMAGE,
+  },
+  {
+    id: 'naderi-classic',
+    name: 'کافه نادری',
+    styleLabel: 'کلاسیک لوکس',
+    description: 'سرمه‌ای عمیق با جزئیات طلایی، طراحی شده برای رستوران‌ها و کافه‌های کلاسیک.',
+    accentColor: '#C9A227',
+    surfaceBg: '#121621',
+    cardBg: '#1B2131',
+    textColor: '#F8FAFC',
+    mutedColor: '#94A3B8',
+    isDark: true,
+    previewImage: ESPRESSO_IMAGE,
+  },
+  {
+    id: 'luna-botanical',
+    name: 'کافه لونا',
+    styleLabel: 'بوتانیکال روشن',
+    description: 'پالت گرم لطیف با رنگ رزگلد و مریم‌گلی، مناسب کافه‌گالری‌ها و دسر‌بار.',
+    accentColor: '#7C4D63',
+    surfaceBg: '#FBF7F4',
+    cardBg: '#FFFFFF',
+    textColor: '#2A2125',
+    mutedColor: '#7A6B72',
+    isDark: false,
+    previewImage: ICED_LATTE_IMAGE,
+  },
+];
+
+export const SUBSCRIPTION_PLANS: SubscriptionPlan[] = [
+  {
+    id: 'free',
+    name: 'پایه (شروع رایگان)',
+    audience: 'مناسب کافه‌های کوچک و تست اولیه',
+    monthlyPrice: 0,
+    yearlyPrice: 0,
+    maxProducts: 15,
+    maxCategories: 3,
+    maxBranches: 1,
+    customDomain: false,
+    wpSync: false,
+    analyticsDays: 7,
+    highlights: [
+      'ثبت تا ۱۵ محصول در ۳ دسته‌بندی',
+      'ساخت QR کد اختصاصی میز',
+      'قالب استاندارد کافه',
+      'آمار بازدید ۷ روز اخیر',
+    ],
+  },
+  {
+    id: 'pro',
+    name: 'حرفه‌ای',
+    audience: 'مناسب کافه‌ها و رستوران‌های فعال',
+    monthlyPrice: 190000,
+    yearlyPrice: 1824000,
+    maxProducts: null,
+    maxCategories: null,
+    maxBranches: 1,
+    customDomain: true,
+    wpSync: true,
+    analyticsDays: 30,
+    highlights: [
+      'محصولات و دسته‌بندی‌های نامحدود',
+      'دسترسی کامل به منوساز بصری و ۴ قالب',
+      'اتصال مستقیم افزونه وردپرس و ووکامرس',
+      'آمار بازدید ۳۰ روزه و اتصال دامنه شخصی',
+    ],
+  },
+  {
+    id: 'enterprise',
+    name: 'زنجیره‌ای و رستوران',
+    audience: 'مناسب مجموعه‌های چند شعبه و برندها',
+    monthlyPrice: 450000,
+    yearlyPrice: 4320000,
+    maxProducts: null,
+    maxCategories: null,
+    maxBranches: 5,
+    customDomain: true,
+    wpSync: true,
+    analyticsDays: 365,
+    highlights: [
+      'مدیریت یکپارچه تا ۵ شعبه با یک پنل',
+      'منوی دو زبانه (فارسی / انگلیسی)',
+      'وب‌هوک اختصاصی و همگام‌سازی اشتراک ووکامرس',
+      'پشتیبانی تلفنی و تیکت با اولویت بالا',
+    ],
+  },
+];
+
+export const INITIAL_CAFE_STATE: CafeState = {
+  isAuthenticated: true,
+  currentPlanId: 'pro',
+  billingCycle: 'yearly',
+  subscriptionExpiresAt: '۱۴۰۵/۱۲/۲۹',
+  settings: {
+    cafeName: 'کافه روکا',
+    slug: 'roka-cafe',
+    tagline: 'قهوه تخصصی، نانوایی صبحگاهی و فضای کار آرام',
+    phone: '۰۲۱-۸۸۴۲۱۹۰۰',
+    address: 'تهران، خیابان کریم‌خان، نبش خیابان ویلا، پلاک ۱۴',
+    workingHours: 'همه‌روزه از ۸:۰۰ تا ۲۳:۳۰',
+    wifiName: 'Roka_Guest_5G',
+    wifiPassword: 'roka2026',
+    instagram: '@roka.specialty.cafe',
+    wpSiteUrl: 'https://rokacafe.ir',
+    wpWebhookSecret: 'cm_wp_live_8492a7f1b',
+  },
+  categories: [
+    { id: 'cat-hot', name: 'نوشیدنی‌های گرم', order: 1, visible: true },
+    { id: 'cat-cold', name: 'نوشیدنی‌های سرد', order: 2, visible: true },
+    { id: 'cat-dessert', name: 'دسر و کیک', order: 3, visible: true },
+    { id: 'cat-breakfast', name: 'صبحانه', order: 4, visible: true },
+    { id: 'cat-brew', name: 'قهوه دمی', order: 5, visible: true },
+    { id: 'cat-tea', name: 'دمنوش و چای', order: 6, visible: true },
+  ],
+  items: [
+    {
+      id: 'item-1',
+      categoryId: 'cat-hot',
+      name: 'اسپرسو دبل',
+      description: 'رست مدیوم عربیکا کلمبیا با کرمای غلیظ و نت شکلات تلخ',
+      price: 95000,
+      image: ESPRESSO_IMAGE,
+      available: true,
+      featured: true,
+    },
+    {
+      id: 'item-2',
+      categoryId: 'cat-hot',
+      name: 'لاته کلاسیک',
+      description: 'ترکیب دبل شات اسپرسو و شیر تازه بخار داده شده با فوم لطیف',
+      price: 120000,
+      image: CAPPUCCINO_IMAGE,
+      available: true,
+      featured: true,
+    },
+    {
+      id: 'item-3',
+      categoryId: 'cat-hot',
+      name: 'کاپوچینو',
+      description: 'اسپرسو تخصصی با فوم شیر غلیظ و پودر کاکائو بلژیکی',
+      price: 160000,
+      image: CAPPUCCINO_IMAGE,
+      available: true,
+      featured: false,
+    },
+    {
+      id: 'item-4',
+      categoryId: 'cat-cold',
+      name: 'آیس کارامل لاته',
+      description: 'اسپرسو خنک، شیر سرد، یخ کریستالی و سس کارامل دست‌ساز',
+      price: 175000,
+      image: ICED_LATTE_IMAGE,
+      available: true,
+      featured: true,
+    },
+    {
+      id: 'item-5',
+      categoryId: 'cat-cold',
+      name: 'آیس آمریکانو',
+      description: 'دبل شات اسپرسو روی یخ و آب تصفیه شده با طعم شفاف',
+      price: 115000,
+      image: ICED_LATTE_IMAGE,
+      available: true,
+      featured: false,
+    },
+    {
+      id: 'item-6',
+      categoryId: 'cat-dessert',
+      name: 'کروسان کره فرانسوی',
+      description: 'پخت تازه روزانه با کره حیوانی و لایه‌های ترد و طلایی',
+      price: 135000,
+      image: PASTRY_IMAGE,
+      available: true,
+      featured: true,
+    },
+    {
+      id: 'item-7',
+      categoryId: 'cat-dessert',
+      name: 'تارت شکلات و تمشک',
+      description: 'تارت کاکائویی با گاناش شکلات ۷۰ درصد و تمشک تازه',
+      price: 185000,
+      image: PASTRY_IMAGE,
+      available: true,
+      featured: false,
+    },
+    {
+      id: 'item-8',
+      categoryId: 'cat-breakfast',
+      name: 'بشقاب صبحانه روکا',
+      description: 'تخم‌مرغ ارگانیک، پنیر هالومی، نان ساوردو برشته و آووکادو',
+      price: 340000,
+      image: PASTRY_IMAGE,
+      available: true,
+      featured: true,
+    },
+    {
+      id: 'item-9',
+      categoryId: 'cat-brew',
+      name: 'کمکس تک‌خاستگاه اتیوپی',
+      description: 'دم‌آوری دستی با نت‌های مرکبات، یاس و شیرینی کاراملی',
+      price: 195000,
+      image: ESPRESSO_IMAGE,
+      available: true,
+      featured: false,
+    },
+    {
+      id: 'item-10',
+      categoryId: 'cat-tea',
+      name: 'دمنوش آرامش بهارنارنج',
+      description: 'ترکیب بهارنارنج شیراز، بابونه و عسل کوهستان',
+      price: 125000,
+      image: HERO_IMAGE,
+      available: false,
+      featured: false,
+    },
+  ],
+  builder: {
+    templateId: 'roka-dark',
+    accentColor: '#E66F1E',
+    layoutMode: 'list',
+    cardRadius: 'md',
+    showImages: true,
+    showDescriptions: true,
+    showPrices: true,
+    headerTitle: 'کافه روکا',
+    headerSubtitle: 'منوی دیجیتال و سفارش سر میز',
+    bannerText: '۲۰٪ تخفیف ویژه سفارش‌های صبحانه از ساعت ۸ تا ۱۱ صبح',
+    footerNote: 'قیمت‌ها به تومان و شامل ۹٪ مالیات بر ارزش افزوده نمی‌باشد.',
+    layers: [
+      { id: 'header', label: 'بخش سربرگ', visible: true },
+      { id: 'banner', label: 'بنر تبلیغاتی', visible: true },
+      { id: 'categories', label: 'دسته‌بندی‌ها', visible: true },
+      { id: 'products', label: 'لیست محصولات', visible: true },
+      { id: 'footer', label: 'پاورقی و اطلاعات تماس', visible: true },
+    ],
+  },
+  invoices: [
+    {
+      id: 'INV-1405-882',
+      date: '۱۴۰۵/۰۸/۰۱',
+      planName: 'حرفه‌ای (سالانه)',
+      cycle: 'yearly',
+      amount: 1824000,
+      status: 'paid',
+    },
+    {
+      id: 'INV-1404-541',
+      date: '۱۴۰۴/۰۷/۰۱',
+      planName: 'حرفه‌ای (ماهانه)',
+      cycle: 'monthly',
+      amount: 190000,
+      status: 'paid',
+    },
+  ],
+  tickets: [
+    {
+      id: 'TCK-402',
+      subject: 'نحوه اتصال شورت‌کد منو به برگه اصلی وردپرس',
+      category: 'اتصال وردپرس',
+      status: 'answered',
+      createdAt: '۱۴۰۵/۰۸/۱۲',
+      message: 'سلام، می‌خواستم منوی کافه روکا مستقیماً در صفحه /menu سایت وردپرسی ما نمایش داده بشه.',
+      reply: 'سلام وقت بخیر. کافیست شورت‌کد [cafemenu id="roka-cafe"] را در ویرایشگر گوتنبرگ یا المنتور قرار دهید تا منو همگام‌سازی شود.',
+    },
+  ],
+  dailyViews: [
+    { day: '۱', views: 48 },
+    { day: '۳', views: 62 },
+    { day: '۵', views: 54 },
+    { day: '۷', views: 79 },
+    { day: '۹', views: 65 },
+    { day: '۱۱', views: 71 },
+    { day: '۱۳', views: 88 },
+    { day: '۱۵', views: 76 },
+    { day: '۱۷', views: 94 },
+    { day: '۱۹', views: 102 },
+    { day: '۲۱', views: 89 },
+    { day: '۲۳', views: 118 },
+    { day: '۲۵', views: 109 },
+    { day: '۲۷', views: 134 },
+    { day: '۳۰', views: 146 },
+  ],
+};

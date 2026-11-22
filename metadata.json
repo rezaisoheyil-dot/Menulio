@@ -1,0 +1,6 @@
+{
+  "name": "CafeMenu | پلتفرم منوساز دیجیتال و اشتراک کافه و رستوران",
+  "description": "پلتفرم جامع ساخت منوی دیجیتال QR کد، مدیریت اشتراک ماهانه و سالانه، منوساز بصری و پنل مدیریت اختصاصی برای کافه‌ها و رستوران‌ها",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

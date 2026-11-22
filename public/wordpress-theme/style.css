@@ -1,0 +1,18 @@
+/*
+Theme Name: CafeMenu SaaS Theme
+Theme URI: https://cafemenu.ir
+Author: CafeMenu Platform
+Author URI: https://cafemenu.ir
+Description: پوسته اختصاصی پلتفرم منوساز دیجیتال و اشتراک کافه و رستوران با پنل مدیریت کاربران، منوساز بصری، QR کد میزها و همگام‌سازی اشتراک‌های ماهانه و سالانه ووکامرس.
+Version: 1.0.0
+Requires at least: 6.0
+Tested up to: 6.7
+Requires PHP: 7.4
+Text Domain: cafemenu-theme
+Tags: rtl-language-support, restaurant, cafe, digital-menu, woocommerce
+*/
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
